@@ -74,8 +74,8 @@ resource "azurerm_linux_virtual_machine" "demo" {
   resource_group_name = azurerm_resource_group.demo.name
   location            = azurerm_resource_group.demo.location
   size                = "Standard_B1s"
-  admin_username      = "adminuser"
-  admin_password      ="Pass@123456pass"
+  #admin_username      = "adminuser"
+  #admin_password      ="Pass@123456pass"
 
   network_interface_ids = [
     azurerm_network_interface.demo.id,
@@ -85,7 +85,13 @@ resource "azurerm_linux_virtual_machine" "demo" {
    # username   = "adminuser"
     #public_key = file("~/.ssh/id_rsa.pub")
   #}
-
+os_profile {
+    admin_username = "testadmin"
+    admin_password = "Password1234!"
+  }
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
